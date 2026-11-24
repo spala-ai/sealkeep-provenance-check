@@ -1,0 +1,28 @@
+name: Sealkeep provenance check
+description: Fails a pull request whose commits name an agent session that was not synced to the company's Sealkeep plane.
+inputs:
+  plane-url:
+    description: The verify URL `sealkeep org provenance` prints, or the plane's base URL.
+    required: true
+  token:
+    description: The organisation's CI token from `sealkeep org provenance token create`. Pass it from a secret.
+    required: true
+  require:
+    description: '"ai" fails only on a Sealkeep-Session trailer the plane cannot verify; "all" also fails on a commit with no trailer and no `Sealkeep-Session: none`.'
+    required: false
+    default: ai
+  match-author:
+    description: '"true" also fails when the member who synced the session is not the commit author (compared by email).'
+    required: false
+    default: "false"
+  repo:
+    description: The repository as host/owner/name, as the developers' git remote names it. Defaults to the server host and GITHUB_REPOSITORY.
+    required: false
+    default: ""
+  github-token:
+    description: Lists the pull request's commits.
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: node24
+  main: check.mjs
