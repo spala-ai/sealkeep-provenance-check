@@ -33,5 +33,6 @@ rules.
 | `match-author` | `false` | `true` also fails when the session was synced by someone other than the commit author |
 | `repo` | server host + `GITHUB_REPOSITORY` | The repository as `host/owner/name`, as developers' remotes name it |
 
-The check uses only Node's standard library and sends the server the
-repository key and the session references, nothing from the code.
+The check uses only Node's standard library. It sends the server the
+repository key and the session references (with `match-author`, also each
+commit's author email), and nothing from the code.
